@@ -139,7 +139,7 @@ useEffect(() => {
   return (
 <div className="bg-gray-50 dark:bg-[#1b1b1b] min-h-screen flex flex-col">
   {/* File Explorer Style Navbar */}
-  <nav className="w-full border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#242424] px-4 py-2 flex items-center justify-between">
+  <nav className="w-full border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#242424] px-4 py-2 flex items-center justify-between flex-wrap gap-5">
     {/* Left section: Breadcrumb */}
     <div
       onClick={showNice}
