@@ -11,10 +11,10 @@ export default function Page() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [header, setHeader] = useState({ title: "Get access to pdf reader", subtitle: "You can download multiple files or select the pdf for download", imageUrl: "/images/headimg.png"})
+  const [header, setHeader] = useState({ title: "Get access to pdf reader", subtitle: "You can download multiple files or select the pdf for download", imageUrl: "/images/headimg.png", logoUrl: "/images/company.webp"})
   const [pdfs, setPdfs] = useState([
-    { title: "Specification", subtitle: "An hour ago", imageUrl: "/images/img9.jpeg"},
-    { title: "Company Presentation", subtitle: "A few hours ago", imageUrl: "/images/img11.jpeg"},
+    { title: "Specification", subtitle: "An hour ago", imageUrl: "/images/img9.jpeg", logoUrl: ""},
+    { title: "Company Presentation", subtitle: "A few hours ago", imageUrl: "/images/img11.jpeg", logoUrl: ""},
   ]);
 
 useEffect(() => {
@@ -31,6 +31,7 @@ useEffect(() => {
           title: data.form1?.title || prev.title,
           subtitle: data.form1?.subtitle || prev.subtitle,
           imageUrl: data.form1?.imageUrl || prev.imageUrl,
+          logoUrl: data.form1?.logoUrl || prev.logoUrl,
         }));
 
         setPdfs(prev => prev.map((pdf, index) => {
@@ -40,6 +41,7 @@ useEffect(() => {
             title: data[`form${formNumber}`]?.title || pdf.title,
             subtitle: data[`form${formNumber}`]?.subtitle || pdf.subtitle,
             imageUrl: data[`form${formNumber}`]?.imageUrl || pdf.imageUrl,
+            logoUrl: data[`form${formNumber}`]?.logoUrl || pdf.logoUrl,
           };
         }));
 
@@ -137,9 +139,9 @@ useEffect(() => {
       }
 
   return (
-<div className="bg-gray-50 dark:bg-[#1b1b1b] min-h-screen flex flex-col">
+<div className="min-h-screen flex flex-col">
   {/* File Explorer Style Navbar */}
-  <nav className="w-full border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-[#242424] px-4 py-2 flex items-center justify-between flex-wrap gap-5">
+  <nav className="w-full border-b border-gray-200 dark:border-gray-700 bg-white sticky top-0 z-10 dark:bg-[#242424] px-4 py-2 flex items-center justify-between flex-wrap gap-5">
     {/* Left section: Breadcrumb */}
     <div
       onClick={showNice}
@@ -196,11 +198,11 @@ useEffect(() => {
       {pdfs.map((pdf, index) => (
         <div
           key={index}
-          className="bg-white dark:bg-[#242424] h-fit border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer"
+          className="bg-white dark:bg-[#242424] relative h-fit border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer"
           onClick={showNice}
         >
           {loading ? (
-            <div className="w-full h-48 bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300">
+            <div className="w-[200px] h-[300px] bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300">
               Loading...
             </div>
           ) : (
@@ -210,6 +212,9 @@ useEffect(() => {
                 alt={`Document ${index + 1}`}
                 className="w-full h-48 object-cover"
               />
+              <img src={header.logoUrl}
+              alt='companylogo'
+              className='h-10 absolute top-0 left-0'/>
               <div className="p-3">
                 <div className="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate">
                   {pdf.title}
